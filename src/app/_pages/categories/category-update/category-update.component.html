@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="container mt-5">
+    <div class="card p-2">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Update Category <b>#{{category.id}}</b></h5>
+              <form (ngSubmit)="updateCategory(categoryForm, category.id)" #categoryForm="ngForm">
+                <div class="form-group">
+                  <label for="categoryName">Category Name</label>
+                  <input type="text" id="categoryName" name="categoryName" class="form-control" [(ngModel)]="category.name" required>
+                </div>
+      
+                <div class="form-group">
+                  <label for="categoryImage">Category Image</label>
+                  <input type="file" accept=".jpeg, .jpg, .png" id="categoryImage" name="categoryImage" class="form-control-file" (change)="onFileSelected($event)">
+                </div>
+
+                <div class="form-group" *ngIf="categoryImageFile">
+                  <label>Selected Image:</label>
+                  <img [src]="categoryImageFile.url" alt="Selected Image" class="img-fluid">
+                </div>
+      
+                <button type="submit" class="btn btn-primary">Update Category</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

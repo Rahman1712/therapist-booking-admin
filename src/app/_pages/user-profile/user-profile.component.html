@@ -1,0 +1,81 @@
+<div class="container min-vh-100">
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow" *ngIf="user">
+          <div class="card-header border-0">
+            <h3 class="mb-0">User Details</h3>
+          </div>
+          <div class="card-body">
+            <div class="mb-4">
+              <h4 class="mb-0">User ID: {{ user.id }}</h4>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card shadow border-0 rounded">
+                  <div class="card-body">
+                    <div class="mb-3 d-flex justify-content-center">
+                      <img [src]="user.imageUrl" alt="User Image" class="img-fluid rounded-circle" width="100"
+                        *ngIf="user.imageUrl != null || undefined; else elseImage;" />
+                      <ng-template #elseImage>
+                        <img src="assets/images/profile/user-1.jpg" alt="Imagem placeholder"
+                          class="rounded-circle img-fluid" width="80">
+                      </ng-template>
+                    </div>
+
+                    <p class="text-center">Username: {{ user.username }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column -->
+              <div class="col-md-8">
+                <div class="card shadow border-0 rounded">
+                  <div class="card-body">
+                    <!-- Status -->
+                    <h5>Status</h5>
+                    <p>Enabled : <span
+                        class="badge bg-light-info fw-bolder {{user.enabled ? 'text-success' : 'text-danger'}}">{{
+                        user.enabled }}</span>
+                    </p>
+                    <p>Activated: <span
+                        class="badge bg-light-info fw-bolder {{user.nonLocked ? 'text-success' : 'text-danger'}}">{{
+                        user.nonLocked }}</span></p>
+                   
+
+                    <div class="p-2 card ">
+                      <h5 class="text-decoration-underline">Actions</h5>
+                      <div class="d-flex my-3 gap-2">
+                        <button class="btn {{user.nonLocked ? 'btn-danger' : 'btn-success'}}"
+                          (click)="updateActive(user.id, !user.nonLocked)">
+                          {{ user.nonLocked ? 'De-activate' : 'Activate' }}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="p-2 card mt-5">
+                      <h5>Details</h5>
+                      <p>Fullname: {{ user.fullname }}</p>
+                      <p>Email: {{ user.email }}</p>
+                      <p>Mobile: {{ user.mobile }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!user" class="d-flex justify-content-center mt-5">
+          <div class="info-box d-flex flex-column col-6 align-items-center justify-content-center py-5">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p>User not found.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

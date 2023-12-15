@@ -1,0 +1,22 @@
+
+
+.tree{
+  left: 0px;
+  bottom: 0px;
+  position: absolute;
+  z-index: -1;
+}
+
+.mask {
+  bottom: 0px;
+  z-index: -1;
+  width: 100%;
+  position: absolute;
+}
+
+.tree-2 {
+  right: 0px;
+  bottom: 0px;
+  position: absolute;
+  z-index: -1;
+}

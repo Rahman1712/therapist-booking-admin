@@ -1,0 +1,127 @@
+<div class="container min-vh-100">
+
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">Users</h3>
+          </div>
+
+          <div class="d-flex flex-row align-items-center ms-auto m-3">
+              <label for="form-label">Filter</label>
+              <!-- (keyup)="applyFilter()" -->
+              <input type="text" [(ngModel)]="searchText" placeholder="Search by fullname,username,role,email" class="form-control mx-2">
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col" class="cursor-pointer" (click)="sortTable('id')">
+                    Id
+                    <span *ngIf="sortProperty == 'id'">
+                      <i class="ms-1 fas {{sortOrder == 'asc' ? 'fa-arrow-down' : 'fa-arrow-up'}} text-primary"></i>
+                    </span>
+                  </th>
+                  <th scope="col" class="cursor-pointer" (click)="sortTable('fullname')">
+                    Name
+                    <span *ngIf="sortProperty == 'fullname'">
+                      <i class="ms-1 fas {{sortOrder == 'asc' ? 'fa-arrow-down' : 'fa-arrow-up'}} text-primary"></i>
+                    </span>
+                  </th>
+                  <th scope="col" class="cursor-pointer" (click)="sortTable('email')">
+                    Email
+                    <span *ngIf="sortProperty == 'email'">
+                      <i class="ms-1 fas {{sortOrder == 'asc' ? 'fa-arrow-down' : 'fa-arrow-up'}} text-primary"></i>
+                    </span>
+                  </th>
+                  <th scope="col">Active</th>
+                  <th scope="col">Non Locked</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="usersDtoList">
+
+                <tr *ngFor="let user of getPaginatedUsers() | usersfilter:searchText ; let i = index;">
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      <a href="javascript:void(0)" class="avatar rounded-circle mr-3 ">
+                        <div *ngIf="user.imageUrl != null || undefined; else elseImage;">
+                          <!-- <img alt="Image placeholder" [src]='user.userImage.url' class="img-fluid w-25"> -->
+                          <img [src]="user.imageUrl" alt="Imagex placeholder" class="rounded-circle img-fluid" width="30">
+                        </div>
+                        <ng-template #elseImage >
+                          <img src="assets/images/profile/user-1.jpg" alt="Imagem placeholder" class="rounded-circle img-fluid" width="30">
+                        </ng-template> 
+                      </a>
+                    </div>
+                  </th>
+                  <td>
+                    <a [routerLink]="['/user-profile', user.id]">#{{user.id}}</a>
+                    
+                  </td>
+                  <td>
+                    {{user.fullname}}
+                  </td>
+                  <td>
+                    <div class="avatar-group">
+                      <p>{{user.email}}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="mr-2">{{user.enabled}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <!-- <span class="mr-2">{{user.nonLocked}}</span> -->
+                      <div class="form-check form-switch">
+                        <input class="form-check-input cursor-pointer" type="checkbox" name="nonLocked" id="nonLocked" [(ngModel)]="user.nonLocked" (change)="updateActive(user.id,user.nonLocked)">
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+
+              <ul class="pagination justify-content-end mb-0">
+               
+                <li class="page-item" [class.disabled]="!hasPreviousPage()">
+                  <a class="page-link" href="javascript:void(0)" tabindex="-1" (click)="goToPreviousPage()">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+              
+                <li class="page-item {{currentPage == page && 'active'}}" *ngFor="let page of getTotalPages() ; let i = index;">
+                  <a class="page-link" href="javascript:void(0)" (click)="onPageChange(page)">
+                    {{ page }}
+                  </a>
+                </li>
+
+                <li class="page-item" [class.disabled]="!hasNextPage()">
+                  <a class="page-link" href="javascript:void(0)" (click)="goToNextPage()">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+
+              </ul>
+
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,39 @@
+
+
+<div class="modal-header">
+  <h4 class="modal-title">Select Categories</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <!-- Left Column for Badges -->
+    <div class="col-6">
+      <div *ngFor="let selected of selectedCategories" class="badge badge-secondary bg-success m-2">
+        <span class="text-dark fw-bold">{{ selected }}</span>
+        <span class="cursor-pointer close mx-1 fw-bolder text-danger fs-3" (click)="removeCategory(selected)">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      </div>
+    </div>
+
+    <!-- Right Column for Select, Add, and Buttons -->
+    <div class="col-6">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="selectedCategory">
+          <option *ngFor="let category of categoriesList" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-3" (click)="addCategory()">Add</button>
+    </div>
+  </div>
+
+  <div *ngIf="alertMessage" class="alert alert-{{alertType}} alert-dismissible fade show m-3" role="alert">
+    {{ alertMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="alertClear()"></button>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-secondary" (click)="activeModal.close('Close')">Close</button>
+  <button class="btn btn-primary" (click)="saveCategories()">Save</button>
+</div>
+

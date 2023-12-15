@@ -1,0 +1,171 @@
+<div class="container min-vh-100">
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow" *ngIf="admin">
+          <div class="card-header border-0">
+            <h3 class="mb-0">Admin Details</h3>
+          </div>
+          <div class="card-body">
+            <div class="mb-4">
+              <h4 class="mb-0">Admin ID: {{ admin.id }}</h4>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card shadow border-0 rounded">
+                  <div class="card-body">
+                    <div class="mb-3 d-flex justify-content-center">
+                      <!-- <div *ngIf="admin.image ; else elseImage;">
+                        <img [src]="admin.adminImage.url" alt="User Image" class="img-fluid rounded-circle" width="100"
+                         />
+                      </div>
+                      <ng-template #elseImage>
+                        <img src="assets/images/profile/user-1.jpg" alt="Imagem placeholder"
+                          class="rounded-circle img-fluid" width="80">
+                      </ng-template> -->
+
+
+                      <form ngNativeValidate (ngSubmit)="updateAdminImage()">
+                        <div class="row mb-3">
+                            <ng-container *ngIf="admin.image ; else elseImage;">
+                              <img [src]="adminImageFile ? adminImageFile.url : admin.adminImage.url" alt="User Image" class="img-fluid rounded-circle" width="80"
+                               />
+                            </ng-container>
+                            <ng-template #elseImage>
+                              <img src="assets/images/profile/user-1.jpg" alt="Imagem placeholder"
+                                class="rounded-circle img-fluid" width="80">
+                            </ng-template>
+                            
+                            <div class="pt-2 text-center ">
+                              <a (click)="fileInput.click()" class="btn btn-primary btn-sm mx-1" title="Upload new profile image"><i class="bi bi-upload"></i>
+                                <input ngNativeValidate  hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                              </a>
+                              <a (click)="deleteImage()"  class="btn btn-danger btn-sm mx-1" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <p class="text-center">Username: {{ admin.username }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column -->
+              <div class="col-md-8">
+                <div class="card shadow border-0 rounded">
+                  <div class="card-body">
+                    <!-- Status -->
+                    <h5>Status</h5>
+                    <p>Enabled : <span
+                        class="badge bg-light-info fw-bolder {{admin.enabled ? 'text-success' : 'text-danger'}}">{{
+                        admin.enabled }}</span>
+                    </p>
+                    <p>Activated: <span
+                        class="badge bg-light-info fw-bolder {{admin.nonLocked ? 'text-success' : 'text-danger'}}">{{
+                        admin.nonLocked }}</span></p>
+                   
+                    <div class="p-2 card mt-5">
+                      <h5>Details</h5>
+                      <p>Fullname: {{ admin.fullname }}</p>
+                      <p>Email: {{ admin.email }}</p>
+                      <p>Mobile: {{ admin.mobile }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="card shadow border-0 rounded">
+                  <div class="card-body">
+                    <div class="tab-pane  pt-3" id="profile-change-password">
+                      <!-- Change Password Form -->
+                      <form #passwordForm="ngForm" (ngSubmit)="updateAdminCredential()">
+                        <div class="row mb-3">
+                          <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="currentPassword" type="password" class="form-control" id="currentPassword" required [(ngModel)]="currentPassword">
+                          </div>
+                        </div>
+                      
+                        <div class="row mb-3">
+                          <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="newPassword" type="password" class="form-control" id="newPassword" required [(ngModel)]="newPassword">
+                          </div>
+                        </div>
+                      
+                        <div class="row mb-3">
+                          <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="renewPassword" type="password" class="form-control" id="renewPassword" required [(ngModel)]="renewPassword">
+                          </div>
+                        </div>
+                      
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Change Password</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="card shadow border-0 rounded">
+                  <div class="card-body">
+                    <div class="tab-pane  pt-3" id="profile-change-password">
+                      <form #updateForm="ngForm" (ngSubmit)="updateAdminDetails()" novalidate>
+                        <div class="row mb-3">
+                          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="fullName" type="text" class="form-control" id="fullName" [(ngModel)]="adminRequest.fullname" required minlength="3">
+                            <div *ngIf="updateForm.controls['fullName']?.hasError('minlength')">Minimum 3 characters required.</div>
+                          </div>
+                        </div>
+                
+                        <div class="row mb-3">
+                          <label for="mobile" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="mobile" type="text" class="form-control" id="mobile" [(ngModel)]="adminRequest.mobile" required pattern="[0-9]{10}">
+                            <div *ngIf="updateForm.controls['mobile']?.hasError('pattern')">Enter a 10-digit number.</div>
+                          </div>
+                        </div>
+                
+                        <div class="row mb-3">
+                          <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="email" type="email" class="form-control" id="email" [(ngModel)]="adminRequest.email" required>
+                            <div *ngIf="updateForm.controls['email']?.hasError('email')">Enter a valid email address.</div>
+                          </div>
+                        </div>
+                
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!admin" class="d-flex justify-content-center mt-5">
+          <div class="info-box d-flex flex-column col-6 align-items-center justify-content-center py-5">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p>Admin not found.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

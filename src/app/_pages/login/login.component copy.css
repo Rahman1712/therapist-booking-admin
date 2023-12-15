@@ -1,0 +1,67 @@
+.linear-gradient-background {
+  background: linear-gradient(to bottom right, #b9e3c6, #a4d7e4, #b0a3ff, #ffdf9e);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add SVG shapes as pseudo-elements */
+.linear-gradient-background::before,
+.linear-gradient-background::after,
+.linear-gradient-background::before:nth-child(3),
+.linear-gradient-background::after:nth-child(4),
+.linear-gradient-background::before:nth-child(5),
+.linear-gradient-background::after:nth-child(6) 
+{
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  animation: moveShapes 10s linear infinite alternate;
+}
+
+.linear-gradient-background::before {
+  background-color: #b9e3c6; /* Light Green */
+  top: 20%;
+  left: -20%;
+  animation-duration: 15s;
+}
+
+.linear-gradient-background::after {
+  background-color: #a4d7e4; /* Light Blue */
+  top: 50%;
+  left: 70%;
+  animation-duration: 12s;
+}
+
+/* Additional bubbles */
+.linear-gradient-background::before:nth-child(3) {
+  background-color: #b0a3ff; /* Light Indigo */
+  top: 80%;
+  left: 10%;
+  animation-duration: 10s;
+}
+
+.linear-gradient-background::after:nth-child(4) {
+  background-color: #ffdf9e; /* Light Yellow */
+  top: 30%;
+  left: 40%;
+  animation-duration: 14s;
+}
+
+.linear-gradient-background::before:nth-child(5) {
+  background-color: #ffbdbd; /* Light Red */
+  top: 70%;
+  left: 50%;
+  animation-duration: 9s;
+}
+
+@keyframes moveShapes {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(30px, 30px);
+  }
+}
