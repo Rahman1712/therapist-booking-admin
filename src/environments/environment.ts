@@ -1,12 +1,12 @@
 export const environment = {
   production: true ,
-  apiBaseUrl: 'https://medicarehealth.website:8989/admins/api/v1/auth',
-  apiAdminPrivateUrl: 'https://medicarehealth.website:8989/admins/api/v1/private',
-  apiAdminUsersUrl: 'https://medicarehealth.website:8989/admins/api/v1/users',
-  apiAdminTherapistsUrl: 'https://medicarehealth.website:8989/admins/api/v1/therapists',
-  apiAdminCategoryUrl: 'https://medicarehealth.website:8989/admins/api/v1/category',
-  apiTherapistsUrl: 'https://medicarehealth.website:8989/therapists/api/v1/public',
-  apiTherapistsAdminPublicUrl: 'https://medicarehealth.website:8989/therapists/api/v1/public-to-admin', // Direct From Therapists
+  apiBaseUrl: 'https://medicarehealth.website/admins/api/v1/auth',
+  apiAdminPrivateUrl: 'https://medicarehealth.website/admins/api/v1/private',
+  apiAdminUsersUrl: 'https://medicarehealth.website/admins/api/v1/users',
+  apiAdminTherapistsUrl: 'https://medicarehealth.website/admins/api/v1/therapists',
+  apiAdminCategoryUrl: 'https://medicarehealth.website/admins/api/v1/category',
+  apiTherapistsUrl: 'https://medicarehealth.website/therapists/api/v1/public',
+  apiTherapistsAdminPublicUrl: 'https://medicarehealth.website/therapists/api/v1/public-to-admin', // Direct From Therapists
   appName: 'MediCare 💙',
 };
 
